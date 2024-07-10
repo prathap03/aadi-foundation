@@ -82,9 +82,9 @@ const PageInsights = () => {
             <h4>Total Reactions</h4>
             <p>{getMetricValue('page_actions_post_reactions_like_total')}</p>
           </div>
-          <div>
+          {/* <div>
             <h1 className='p-2 mt-5 font-semibold text-center text-red-500 bg-blue-400/[50%] backdrop-blur-md rounded-md shadow-md'>Page insights data only Available on pages with 100 or more like</h1>
-          </div>
+          </div> */}
         </div>
       ) : (
         <p>Loading...</p>
