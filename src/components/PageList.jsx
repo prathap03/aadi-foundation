@@ -36,7 +36,7 @@ const PagesList = ({ userData }) => {
 
   return (
     <div className='flex items-center justify-center min-h-screen overflow-hidden bg-blue-400'>
-      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[90%] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
+      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[90%] md:min-w-[30%] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
       <h2 className='font-semibold font-sans text-[2rem]'>Select a Page</h2>
       {error ? (
         <p>Error: {error}</p>

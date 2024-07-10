@@ -7,28 +7,40 @@ const PageInsights = () => {
   const { pageAccessToken,name } = location.state;
   const [insights, setInsights] = useState(null);
   const [error, setError] = useState(null);
+  const [since, setSince] = useState('');
+  const [until, setUntil] = useState('');
+
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'since') {
+      setSince(value);
+    } else if (name === 'until') {
+      setUntil(value);
+    }
+  };
 
   useEffect(() => {
     const fetchInsights = async () => {
+      setError(null);
       try {
         const response = await fetch(
-          `https://graph.facebook.com/${pageId}/insights?metric=page_fans,page_tab_views_login_top,page_impressions,page_post_engagements,page_actions_post_reactions_like_total&period=day&access_token=${pageAccessToken}`
+          `https://graph.facebook.com/${pageId}/insights?metric=page_fans,page_tab_views_login_top,page_impressions,page_post_engagements,page_actions_post_reactions_like_total&period=total_over_range&since=${since}&until=${until}&access_token=${pageAccessToken}`
         );
         if (!response.ok) {
           const errorData = await response.json();
-          console.error("Error details:", errorData);
-          throw new Error(`HTTP error! status: ${response.status}`);
+          console.error("Error details:", errorData.error);
+          throw new Error(`${errorData.error.error_user_title}`);
         }
         const data = await response.json();
         setInsights(data.data);
       } catch (err) {
         console.error("Failed to fetch insights:", err);
-        setError(err.message);
+        setError(JSON.stringify(err.message));
       }
     };
 
     fetchInsights();
-  }, [pageId, pageAccessToken]);
+  }, [pageId, pageAccessToken,since, until]);
 
   const getMetricValue = (metricName) => {
     const metric = insights && insights.find(insight => insight.name === metricName);
@@ -37,9 +49,19 @@ const PageInsights = () => {
 
   return (
     <div className='flex items-center justify-center min-h-screen overflow-hidden bg-blue-400'>
-      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[20%] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
+      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[30%] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
       <h2>{name}</h2>
       <h2>Page Insights</h2>
+      <div className='flex gap-2'>
+        <label>
+          Since:
+          <input type="date" name="since" value={since} onChange={handleDateChange} />
+        </label>
+        <label>
+          Until:
+          <input type="date" name="until" value={until} onChange={handleDateChange} />
+        </label>
+      </div>
       {error ? (
         <p>Error: {error}</p>
       ) : insights ? (

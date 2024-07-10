@@ -12,9 +12,10 @@ const Login = ({ setUserData }) => {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen'>
+    <div className='flex items-center justify-center min-h-screen overflow-hidden bg-blue-400'>
+
       <div className='flex flex-col items-center justify-center'>
-      <h2>Login with Facebook</h2>
+      <h2 className='mb-5 font-semibold text-white text-[1.5rem]'>Welcome to Facebook Analyzer</h2>
       <FacebookLogin
         appId={import.meta.env.VITE_REACT_APP_FACEBOOK_APP_ID}
         autoLoad={true}
