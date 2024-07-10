@@ -30,22 +30,22 @@ const PagesList = ({ userData }) => {
     fetchPages();
   }, [userData.accessToken]);
 
-  const handlePageSelect = (pageId, pageAccessToken) => {
-    navigate(`/insights/${pageId}`, { state: { pageAccessToken } });
+  const handlePageSelect = (pageId, pageAccessToken,name) => {
+    navigate(`/insights/${pageId}`, { state: { pageAccessToken,name } });
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-blue-400'>
-      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[40rem] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
+    <div className='flex items-center justify-center min-h-screen overflow-hidden bg-blue-400'>
+      <div className='flex backdrop-blur-md flex-col items-center min-h-[12rem] min-w-[90%] gap-2 p-10 bg-white/[50%] rounded-md shadow-md justify-evenly'>
       <h2 className='font-semibold font-sans text-[2rem]'>Select a Page</h2>
       {error ? (
         <p>Error: {error}</p>
       ) : Loading ? (
         <p>Loading...</p>
       ) : (
-        <select className='w-[50%] p-2 bg-blue-400 text-white text-center' onChange={(e) => {
+        <select className='w-[90%] p-2 bg-blue-400 text-white text-center' onChange={(e) => {
           const selectedPage = pages.find(page => page.id === e.target.value);
-          handlePageSelect(selectedPage.id, selectedPage.access_token);
+          handlePageSelect(selectedPage.id, selectedPage.access_token,selectedPage.name);
         }}>
           <option>Select a page</option>
           {pages.map(page => (

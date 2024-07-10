@@ -19,6 +19,7 @@ const Login = ({ setUserData }) => {
         appId={import.meta.env.VITE_REACT_APP_FACEBOOK_APP_ID}
         autoLoad={true}
         fields="name,email,picture"
+        scope="pages_show_list,pages_read_engagement,pages_read_user_content"
         callback={responseFacebook}
         icon="fa-facebook"
       />
