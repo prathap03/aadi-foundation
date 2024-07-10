@@ -9,7 +9,7 @@ const UserProfile = ({ userData }) => {
       <div className='overflow-hidden scale-[120%] rounded-full'>
       <img src={userData.picture.data.url} className='rounded-full' alt={userData.name} />
       </div>
-      <h2 className='font-sans font-semibold text-[2rem]'>Welcome, {userData.name}</h2>
+      <h2 className='font-sans font-semibold text-[1.25rem] md:text-[2rem]'>Welcome, {userData.name}</h2>
       
       </div>
       <Link className='p-2 mt-2 hover:bg-blue-700 transition-all ease-linear text-white bg-blue-400 rounded-md shadow-md text-center w-[80%]' to="/pages">View Pages</Link>
